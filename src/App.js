@@ -26,7 +26,7 @@ class BooksApp extends React.Component {
 
             book.shelf = shelf;
             this.setState(state=> (
-                {  allShelfBooks: this.state.allShelfBooks.filter(currentBook => currentBook.id !== book.id).concat([book])} 
+                {  allShelfBooks: state.allShelfBooks.filter(currentBook => currentBook.id !== book.id).concat([book])} 
                 ));
         })
     }
@@ -41,7 +41,7 @@ class BooksApp extends React.Component {
           )} />
 
 
-          <Route path='/search-books' render = { () => (
+          <Route path='/search' render = { () => (
             <Search
 
             allShelfBooks={this.state.allShelfBooks}

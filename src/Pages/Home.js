@@ -6,9 +6,6 @@ import Shelf from '../Components/Shelf.js';
 
 class Home extends Component{
 
- componentDidMount() {
-      // console.log(this.props.allShelfBooks);
-    }
     render(){
 
          return (
@@ -25,7 +22,7 @@ class Home extends Component{
               
           
               <div className="open-search">
-                <Link to="/search-books">Add a book</Link>
+                <Link to="/search">Add a book</Link>
               </div>
             </div>
 

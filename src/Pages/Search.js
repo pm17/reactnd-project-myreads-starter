@@ -10,7 +10,8 @@ class Search extends Component {
     state = {
 
         query: "",
-        searchResult: []
+        searchResult: [],
+        flag: 0
 
     };
 
@@ -21,10 +22,20 @@ class Search extends Component {
 
         //console.log(e.target.value.trim())
         if (e.target.value === '' || e.target.value === undefined) {
-            this.setState({ searchResult: [] });
+            this.setState({ searchResult: [] , flag: 0});
         } else {
-            BooksAPI.search(e.target.value.trim()).then(books =>
-                this.setState({ searchResult: books }));
+            BooksAPI.search(e.target.value.trim()).then(books =>{
+              if(books.length){
+                console.log(books);
+                this.setState({ searchResult: books , flag :0})
+              }
+              if(books.error === "empty query" )
+              {
+                console.log(books)
+                this.setState({ searchResult: [], flag: 1 })
+
+              }
+            })
         }
     };
 
@@ -47,9 +58,11 @@ class Search extends Component {
           </div>
         </div>
 
-        { this.state.searchResult.length === 0 && (<div> No Books Found </div>)}
         <div className="search-books-results">
           <ol className="books-grid">
+          { this.state.searchResult.length === 0 && this.state.flag === 0 && (<div> No Books Found </div>)}
+          { this.state.flag === 1 && (<div> Please use a more suitable query to look for books! </div>)}
+
             {this.state.searchResult.map((book, key) => (
               <Book
                 key={ key }
